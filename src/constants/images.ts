@@ -65,7 +65,7 @@ const PAGE_IMAGES = {
 
 // Brand Assets
 const BRAND_IMAGES = {
-  LOGO: "/images/logo.png",
+  LOGO: "https://placehold.co/200x50/000000/FFFFFF/png?text=JustDial+Clone",
 };
 
 // Export all images in a single object
