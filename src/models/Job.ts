@@ -1,52 +1,49 @@
 import mongoose from 'mongoose';
 
-const jobSchema = new mongoose.Schema({
+const JobSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, 'Please provide a title for the job'],
+    maxlength: [60, 'Title cannot be more than 60 characters'],
   },
   department: {
     type: String,
-    required: true,
+    required: [true, 'Please specify the department'],
   },
   location: {
     type: String,
-    required: true,
+    required: [true, 'Please specify the job location'],
   },
-  type: {
+  description: {
+    type: String,
+    required: [true, 'Please provide a job description'],
+  },
+  requirements: [{
     type: String,
     required: true,
-    enum: ['Full Time', 'Part Time', 'Contract', 'Internship'],
+  }],
+  type: {
+    type: String,
+    enum: ['Full-time', 'Part-time', 'Contract', 'Internship'],
+    required: true,
   },
   experience: {
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  responsibilities: [{
-    type: String,
-    required: true,
-  }],
-  requirements: [{
-    type: String,
-    required: true,
-  }],
   salary: {
-    min: Number,
-    max: Number,
-    currency: String,
+    type: String,
+    required: false,
   },
   postedAt: {
     type: Date,
     default: Date.now,
   },
-  isActive: {
-    type: Boolean,
-    default: true,
-  },
+  status: {
+    type: String,
+    enum: ['Open', 'Closed', 'Draft'],
+    default: 'Open',
+  }
 });
 
-export const Job = mongoose.models.Job || mongoose.model('Job', jobSchema); 
+export default mongoose.models.Job || mongoose.model('Job', JobSchema); 

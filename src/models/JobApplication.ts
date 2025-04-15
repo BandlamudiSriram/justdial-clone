@@ -1,50 +1,45 @@
 import mongoose from 'mongoose';
 
-const jobApplicationSchema = new mongoose.Schema({
+const JobApplicationSchema = new mongoose.Schema({
   jobId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Job',
     required: true,
   },
-  firstName: {
+  fullName: {
     type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
+    required: [true, 'Please provide your full name'],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your email'],
+    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address'],
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, 'Please provide your phone number'],
   },
-  resume: {
-    type: String, // URL to the uploaded resume
-    required: true,
+  experience: {
+    type: String,
+    required: [true, 'Please provide your years of experience'],
   },
   coverLetter: {
     type: String,
-    required: true,
+    required: [true, 'Please provide a cover letter'],
   },
-  linkedin: {
+  resumeUrl: {
     type: String,
-  },
-  portfolio: {
-    type: String,
+    required: [true, 'Please provide a link to your resume'],
   },
   status: {
     type: String,
-    enum: ['Pending', 'Under Review', 'Shortlisted', 'Rejected'],
+    enum: ['Pending', 'Reviewed', 'Shortlisted', 'Rejected'],
     default: 'Pending',
   },
   appliedAt: {
     type: Date,
     default: Date.now,
-  },
+  }
 });
 
-export const JobApplication = mongoose.models.JobApplication || mongoose.model('JobApplication', jobApplicationSchema); 
+export default mongoose.models.JobApplication || mongoose.model('JobApplication', JobApplicationSchema); 
